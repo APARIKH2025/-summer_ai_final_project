@@ -1,4 +1,5 @@
 from typing import Callable
+import numpy as np
 
 from adversarialsearchproblem import (
     Action,
@@ -17,6 +18,29 @@ def minimax(asp: AdversarialSearchProblem[GameState, Action]) -> Action:
     Output:
         an action (an element of asp.get_available_actions(asp.get_start_state()))
     """
+    player = GameState.player_to_move
+    value, move = Max_Value(GameState, Action)
+    return move
+
+def Max_Value(asp: AdversarialSearchProblem[GameState, Action]) -> Action:
+    if asp.is_terminal_state(GameState):
+        return asp.evaluate_terminal(GameState), None
+    v = -np.inf
+    for action in asp.get_available_actions(GameState):
+        v2, a2 = Min_Value(asp, asp.transition(GameState, action))
+        if v2 > v:
+            v, move = v2, action
+    return v, move
+
+def Min_Value(asp: AdversarialSearchProblem[GameState, Action]) -> Action:
+    if asp.is_terminal_state(GameState):
+        return asp.evaluate_terminal(GameState), None
+    v = np.inf
+    for action in asp.get_available_actions(GameState):
+        v2, a2 = Min_Value(asp, asp.transition(GameState, action))
+        if v2 < v:
+            v, move = v2, action
+    return v, move
     ...
 
 
@@ -30,6 +54,8 @@ def alpha_beta(asp: AdversarialSearchProblem[GameState, Action]) -> Action:
     Output:
         an action(an element of asp.get_available_actions(asp.get_start_state()))
     """
+
+
     ...
 
 
