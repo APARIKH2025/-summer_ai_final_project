@@ -57,10 +57,43 @@ def alpha_beta(asp: AdversarialSearchProblem[GameState, Action]) -> Action:
     Output:
         an action(an element of asp.get_available_actions(asp.get_start_state()))
     """
+    state = asp.get_start_state()
+    player = state.player_to_move()
+    value, move = Max_ValueHi(asp,state,-np.inf,np.inf, player)
+    return move
 
+def Max_ValueHi(asp,state,alpha,beta, player):
+    if asp.is_terminal_state(state):
+        return asp.evaluate_terminal(state)[player], None
+    value = -np.inf
+    move = None
+    for action in asp.get_available_actions(state):
+        newstate = asp.transition(state, action)
+        value2, a2 = Min_ValueHi(asp, newstate, alpha, beta, player)
+        if value2 > value:
+            value, move = value2, action
+            alpha = max(alpha,value)
+        if value >= beta:
+            return value, move
+    return value, move
+
+def Min_ValueHi(asp,state,alpha,beta, player):
+    if asp.is_terminal_state(state):
+        return asp.evaluate_terminal(state)[player], None
+    value = np.inf
+    move = None
+    for action in asp.get_available_actions(state):
+        newstate = asp.transition(state, action)
+        value2, a2 = Max_ValueHi(asp, newstate, alpha, beta, player)
+        if value2 < value:
+            value, move = value2, action
+            beta = min(beta,value)
+        if value <= alpha:
+            return value, move
+    return value, move
 
     ...
-
+    
 
 def alpha_beta_cutoff(
     asp: AdversarialSearchProblem[GameState, Action],
