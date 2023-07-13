@@ -126,4 +126,54 @@ def alpha_beta_cutoff(
     Output:
         an action(an element of asp.get_available_actions(asp.get_start_state()))
     """
+    state = asp.get_start_state()
+    player = state.player_to_move()
+    x = 0
+    value, move = Max_Val_Cut(asp,state,-np.inf,np.inf, player, cutoff_ply)
+    return move
+
+def is_cutoff(asp, state, depth):
+    if asp.is_terminal_state(state) or depth == 0:
+        return True
+    else:
+        return False
+
+def Max_Val_Cut(asp,state,alpha,beta, player, depth):
+    if is_cutoff(asp, state, depth):
+        if asp.is_terminal_state(state):
+            return asp.evaluate_terminal(state)[player], None
+        else:
+            return asp.heuristic_func(state, player), None
+    depth -= 1
+    value = -np.inf
+    move = None
+    for action in asp.get_available_actions(state):
+        newstate = asp.transition(state, action)
+        value2, a2 = Min_Val_Cut(asp, newstate, alpha, beta, player, depth)
+        if value2 > value:
+            value, move = value2, action
+            alpha = max(alpha,value)
+        if value >= beta:
+            return value, move
+    return value, move
+
+def Min_Val_Cut(asp,state,alpha,beta, player, depth):
+    if is_cutoff(asp, state, depth):
+        if asp.is_terminal_state(state):
+            return asp.evaluate_terminal(state)[player], None
+        else:
+            return asp.heuristic_func(state, player), None
+    depth -= 1
+    value = np.inf
+    move = None
+    for action in asp.get_available_actions(state):
+        newstate = asp.transition(state, action)
+        value2, a2 = Max_Val_Cut(asp, newstate, alpha, beta, player, depth)
+        if value2 < value:
+            value, move = value2, action
+            beta = min(beta,value)
+        if value <= alpha:
+            return value, move
+    return value, move
+
     ...
