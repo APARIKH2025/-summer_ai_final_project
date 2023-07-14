@@ -1,0 +1,14 @@
+
+
+
+
+The program worked as intended. It was able to 
+execute all the functions necessary to play both 
+tic-tac-toe and Connect4. Based on the results, the
+choices that we made when creating the program were
+appropriate for the task. There is not much that I
+would change if I had to code the same thing again.
+If we had more time, the only thing that could be
+changed would be the heuristic we used. There are no
+ethical implications that my program has that others
+should be aware of.
