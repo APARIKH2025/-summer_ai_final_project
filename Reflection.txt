@@ -1,10 +1,20 @@
 
 
-
+We used the pseudocode to give us a base to work off
+of. The overall program was not much different than
+that. We tested our system by running and playing
+against it ourselves. We would be able to make sure
+it was making the correct moves. We also looked for
+any errors that came up when trying to run the code.
 
 The program worked as intended. It was able to 
 execute all the functions necessary to play both 
-tic-tac-toe and Connect4. Based on the results, the
+tic-tac-toe and Connect4. I would only be able to
+look at 5 moves ahead in the connect4 game, but that
+is because the heuristic was not very good and the
+computer could not handle that many calculations.
+
+Based on the results, the
 choices that we made when creating the program were
 appropriate for the task. There is not much that I
 would change if I had to code the same thing again.
