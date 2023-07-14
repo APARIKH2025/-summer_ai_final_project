@@ -1,4 +1,12 @@
-
+In this assignment, we are devising a way for an agent
+to play an ideal game of tic tac toe and connect4 against 
+a user. For tic tac toe, we implemented a minimax system that  
+found the best move for the agent to use given the human opponent 
+utilizes the move most advantageous for them. Under that assumption, 
+the agent then produced the best possible move given any situation.
+For connect4, we implemented alpha beta system that looked through
+all potential moves, but only saving the path that was ideal for 
+the first player, allowing the computer to save computation time. 
 
 We used the pseudocode to give us a base to work off
 of. The overall program was not much different than
